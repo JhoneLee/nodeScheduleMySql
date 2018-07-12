@@ -2,7 +2,7 @@
 * @Author: liyunjiao2048@163.com
 * @Date:   2018-07-11 16:10:10
 * @Last Modified by:   liyunjiao2048@163.com
-* @Last Modified time: 2018-07-11 16:31:55
+* @Last Modified time: 2018-07-12 16:33:37
 */
 
 const mysql = require('promise-mysql');
@@ -21,9 +21,22 @@ function getSqlConnection(){
 // 使用bluebird 封装具有dispsoer功能的promise对象
 function query(sql){
     return Promise.using(getSqlConnection(),(con)=>{
-        return con.query(sql);
+        return sql?con.query(sql):con;
     })
 }
+
+// 连接测试
+// async function getkkk(){
+//     let con = await pool.getConnection();
+//     await con.query('select * from movie_detail where m_id=242167');
+//     await con.release();
+// }
+// for(let i=0;i<20;i++){
+//     getkkk();
+// }
+
+
+
 
 module.exports ={
     pool,
