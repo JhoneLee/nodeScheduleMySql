@@ -2,7 +2,7 @@
 * @Author: liyunjiao2048@163.com
 * @Date:   2018-07-11 16:20:46
 * @Last Modified by:   liyunjiao2048@163.com
-* @Last Modified time: 2018-07-12 16:22:46
+* @Last Modified time: 2018-07-19 16:23:28
 */
 
 //获取正在热映的电影
@@ -29,7 +29,7 @@ async function getData(){
     let arrs = dealData(source);
     // 插入正在热映数据---
     let sqlShow = `insert into current_show(m_id,date,m_cc,m_sc,m_record) values${arrs.show.join(',')}`;
-    // await query(sqlShow);
+    await query(sqlShow);
     // todo 待完成出错数据回滚
      
     let sql1 = 'select m_id,m_name,m_record from movie_detail where m_id=242167';
@@ -55,7 +55,9 @@ async function execAffairs(){
     console.log('begin execAffairs');
      // 写事务
     const conn = await query();
-    await conn.beginTransaction(); // begin;
+    await conn.beginTransaction({
+        // sql:'SET TRANSACTION'
+    }); // begin;
     try{
         await conn.query('select * from movie_detail where m_id=242167 for update');
         await conn.query('update movie_detail set m_record=7.5 where m_id=242167');
@@ -67,12 +69,12 @@ async function execAffairs(){
     }
 }
 
-async function init(){
-    await execAffairs();
-    await getData();
-}
+// async function init(){
+//     await execAffairs();
+//     await getData();
+// }
 
-init();
+// init();
 
 
 // 拆解需要的字段

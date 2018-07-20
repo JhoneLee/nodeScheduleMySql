@@ -2,7 +2,7 @@
 * @Author: liyunjiao2048@163.com
 * @Date:   2018-07-11 16:58:32
 * @Last Modified by:   liyunjiao2048@163.com
-* @Last Modified time: 2018-07-12 15:58:52
+* @Last Modified time: 2018-07-13 16:08:54
 */
 
 const schedule = require('node-schedule');
@@ -15,4 +15,4 @@ const getData = require('./task/getCurrentShow').getCurrentShow;
 //     });
 // })();
 
-// getData();
+getData();
